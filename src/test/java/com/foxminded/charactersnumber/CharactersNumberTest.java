@@ -15,9 +15,7 @@ class CharactersNumberTest {
     void countUniqueCharactersShouldThrowIllegalArgumentExceptionWhenNull() {
         CharactersNumber charactersNumber = new CharactersNumber();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            charactersNumber.countUniqueCharacters(null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> charactersNumber.countUniqueCharacters(null));
     }
 
     @Test
@@ -65,5 +63,51 @@ class CharactersNumberTest {
         expectedResult.put("d", 1);
         expectedResult.put("!", 1);
         assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void countUniqueCharactersShouldReturnCacheWhenSameStringSeveralTimes() {
+        CharactersNumber charactersNumber = new CharactersNumber();
+        Map<String, Integer> expectedResult = charactersNumber.countUniqueCharacters("hello");
+        Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("hello");
+
+        assertSame(actualResult, expectedResult);
+    }
+
+    @Test
+    void countUniqueCharactersShouldThreeTimesFromCacheWhenSameStringFourTimes() {
+        CharactersNumber charactersNumber = new CharactersNumber();
+        Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("hello");
+        Map<String, Integer> firstCacheResult = charactersNumber.countUniqueCharacters("hello");
+        Map<String, Integer> secondCachelResult = charactersNumber.countUniqueCharacters("hello");
+        Map<String, Integer> thirdCacheResult = charactersNumber.countUniqueCharacters("hello");
+
+        assertSame(actualResult, firstCacheResult);
+        assertSame(firstCacheResult, secondCachelResult);
+        assertSame(secondCachelResult, thirdCacheResult);
+    }
+
+    @Test
+    void countUniqueCharactersShouldRecountForEachStringWhenDifferentStrings() {
+        CharactersNumber charactersNumber = new CharactersNumber();
+        Map<String, Integer> firstActualResult = charactersNumber.countUniqueCharacters("hi");
+        Map<String, Integer> secondActualResult = charactersNumber.countUniqueCharacters("welcome");
+        Map<String, Integer> thirdActualResult = charactersNumber.countUniqueCharacters("hello");
+
+        assertNotSame(firstActualResult, secondActualResult);
+        assertNotSame(secondActualResult, thirdActualResult);
+    }
+
+    @Test
+    void countUniqueCharactersShouldCountNewStringsAndCacheRepetitiveWhenDifferentAndSameStrings() {
+        CharactersNumber charactersNumber = new CharactersNumber();
+        Map<String, Integer> firstActualResult = charactersNumber.countUniqueCharacters("hi");
+        Map<String, Integer> secondActualResult = charactersNumber.countUniqueCharacters("welcome");
+        Map<String, Integer> firstCacheResult = charactersNumber.countUniqueCharacters("hi");
+        Map<String, Integer> secondCachelResult = charactersNumber.countUniqueCharacters("welcome");
+
+        assertNotSame(firstActualResult, secondActualResult);
+        assertSame(firstActualResult, firstCacheResult);
+        assertSame(secondActualResult, secondCachelResult);
     }
 }

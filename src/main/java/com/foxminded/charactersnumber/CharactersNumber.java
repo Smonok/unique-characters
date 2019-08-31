@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class CharactersNumber {
 
-    private Map<String, Map<String, Integer>> cache = new HashMap<>();
+    private final Map<String, Map<String, Integer>> cache = new HashMap<>();
 
     public Map<String, Integer> countUniqueCharacters(String original) {
         if (original == null) {
