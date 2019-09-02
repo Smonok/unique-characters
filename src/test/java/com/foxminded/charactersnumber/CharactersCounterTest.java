@@ -7,49 +7,45 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.foxminded.charactersnumber.CharactersNumber;
+import com.foxminded.charactersnumber.CharactersCounter;
 
-class CharactersNumberTest {
+class CharactersCounterTest {
+
+    private final CharactersCounter charactersNumber = new CharactersCounter();
 
     @Test
     void countUniqueCharactersShouldThrowIllegalArgumentExceptionWhenNull() {
-        CharactersNumber charactersNumber = new CharactersNumber();
-
         assertThrows(IllegalArgumentException.class, () -> charactersNumber.countUniqueCharacters(null));
     }
 
     @Test
     void countUniqueCharactersShouldReturnEmptyMapWhenEmptyString() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> expectedResult = new LinkedHashMap<>();
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("");
 
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void countUniqueCharactersShouldReturnSpaceAndOneWhenSpace() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> expectedResult = new LinkedHashMap<>();
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters(" ");
 
         expectedResult.put(" ", 1);
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void countUniqueCharactersShouldCharacterAndOccurrencesNumberWhenSameCharacterSeveralTimes() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> expectedResult = new LinkedHashMap<>();
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("aaaaa");
 
         expectedResult.put("a", 5);
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void countUniqueCharactersShouldReturnNumberOfUniqueCharactersWhenSeveralWords() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> expectedResult = new LinkedHashMap<>();
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("hello world!");
 
@@ -62,12 +58,11 @@ class CharactersNumberTest {
         expectedResult.put("r", 1);
         expectedResult.put("d", 1);
         expectedResult.put("!", 1);
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void countUniqueCharactersShouldReturnCacheWhenSameStringSeveralTimes() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> expectedResult = charactersNumber.countUniqueCharacters("hello");
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("hello");
 
@@ -76,20 +71,18 @@ class CharactersNumberTest {
 
     @Test
     void countUniqueCharactersShouldThreeTimesFromCacheWhenSameStringFourTimes() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> actualResult = charactersNumber.countUniqueCharacters("hello");
         Map<String, Integer> firstCacheResult = charactersNumber.countUniqueCharacters("hello");
-        Map<String, Integer> secondCachelResult = charactersNumber.countUniqueCharacters("hello");
+        Map<String, Integer> secondCacheResult = charactersNumber.countUniqueCharacters("hello");
         Map<String, Integer> thirdCacheResult = charactersNumber.countUniqueCharacters("hello");
 
         assertSame(actualResult, firstCacheResult);
-        assertSame(firstCacheResult, secondCachelResult);
-        assertSame(secondCachelResult, thirdCacheResult);
+        assertSame(firstCacheResult, secondCacheResult);
+        assertSame(secondCacheResult, thirdCacheResult);
     }
 
     @Test
     void countUniqueCharactersShouldRecountForEachStringWhenDifferentStrings() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> firstActualResult = charactersNumber.countUniqueCharacters("hi");
         Map<String, Integer> secondActualResult = charactersNumber.countUniqueCharacters("welcome");
         Map<String, Integer> thirdActualResult = charactersNumber.countUniqueCharacters("hello");
@@ -100,14 +93,13 @@ class CharactersNumberTest {
 
     @Test
     void countUniqueCharactersShouldCountNewStringsAndCacheRepetitiveWhenDifferentAndSameStrings() {
-        CharactersNumber charactersNumber = new CharactersNumber();
         Map<String, Integer> firstActualResult = charactersNumber.countUniqueCharacters("hi");
         Map<String, Integer> secondActualResult = charactersNumber.countUniqueCharacters("welcome");
         Map<String, Integer> firstCacheResult = charactersNumber.countUniqueCharacters("hi");
-        Map<String, Integer> secondCachelResult = charactersNumber.countUniqueCharacters("welcome");
+        Map<String, Integer> secondCacheResult = charactersNumber.countUniqueCharacters("welcome");
 
         assertNotSame(firstActualResult, secondActualResult);
         assertSame(firstActualResult, firstCacheResult);
-        assertSame(secondActualResult, secondCachelResult);
+        assertSame(secondActualResult, secondCacheResult);
     }
 }

@@ -3,7 +3,7 @@ package com.foxminded.charactersnumber;
 public class Main {
 
     public static void main(String[] args) {
-        CharactersNumber charactersNumber = new CharactersNumber();
+        CharactersCounter charactersNumber = new CharactersCounter();
         String input = "hello world!";
 
         System.out.println("Input string: " + input + "\n" + charactersNumber.countUniqueCharacters(input));

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CharactersNumber {
+public class CharactersCounter {
 
     private final Map<String, Map<String, Integer>> cache = new HashMap<>();
 
@@ -21,7 +21,7 @@ public class CharactersNumber {
 
         for (int i = 0; i < original.length(); i++) {
             String character = Character.toString(original.charAt(i));
-            Integer number = calculateCharacterOccurrencesNumber(original, original.charAt(i));
+            Integer number = countOccurrences(original, original.charAt(i));
             charactersNumber.put(character, number);
         }
 
@@ -30,7 +30,7 @@ public class CharactersNumber {
         return charactersNumber;
     }
 
-    private int calculateCharacterOccurrencesNumber(String original, char character) {
+    private int countOccurrences(String original, char character) {
         return (int) original.chars().filter(symbol -> symbol == character).count();
     }
 }
