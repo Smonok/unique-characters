@@ -21,8 +21,9 @@ public class CharactersCounter {
 
         for (int i = 0; i < original.length(); i++) {
             String character = Character.toString(original.charAt(i));
-            Integer number = countOccurrences(original, original.charAt(i));
-            charactersNumber.put(character, number);
+            Integer count = countOccurrences(original, original.charAt(i));
+
+            charactersNumber.merge(character, count, (oldNumber, newNumber) -> newNumber);
         }
 
         cache.put(original, charactersNumber);
