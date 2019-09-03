@@ -1,4 +1,4 @@
-package com.foxminded.charactersnumber;
+package com.foxminded.uniquecharacters;
 
 public class Main {
 

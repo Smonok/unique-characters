@@ -1,4 +1,4 @@
-package com.foxminded.charactersnumber;
+package com.foxminded.uniquecharacters;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

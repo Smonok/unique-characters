@@ -1,4 +1,4 @@
-package com.foxminded.charactersnumber;
+package com.foxminded.uniquecharacters;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.foxminded.charactersnumber.CharactersCounter;
+import com.foxminded.uniquecharacters.CharactersCounter;
 
 class CharactersCounterTest {
 
